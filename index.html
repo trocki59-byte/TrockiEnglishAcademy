@@ -1,5 +1,5 @@
 <!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#111a35"><link rel="manifest" href="manifest.webmanifest"><title>TROÇKİ English Academy</title><style>
-:root{font-family:system-ui,-apple-system,sans-serif;color:#f6f8ff;background:#0b1226}*{box-sizing:border-box}body{margin:0}header{padding:20px;background:#131f3e;border-bottom:1px solid #334368}main{max-width:1000px;margin:auto;padding:20px}.brand{font-size:25px;font-weight:800}.muted{color:#b7c5e6}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.card{background:#172544;border:1px solid #344568;border-radius:18px;padding:20px;margin:12px 0}button,select{background:#5068eb;color:white;border:0;border-radius:10px;padding:12px 16px;font:inherit;cursor:pointer}button:hover{background:#657bfa}button:disabled{opacity:.5}nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.choice{display:block;width:100%;text-align:left;margin:8px 0;background:#263858}.good{color:#6ee7b7}.bad{color:#fca5a5}.pill{display:inline-block;padding:5px 10px;background:#2c416a;border-radius:20px;margin:4px}h1,h2,h3{line-height:1.25}footer{text-align:center;padding:28px;color:#b7c5e6}</style></head><body><header><div class="brand">🇬🇧 TROÇKİ ENGLISH ACADEMY</div><div class="muted">İngilizce öğren • Pratik yap • Sınava hazırlan</div><nav><button onclick="view('home')">Ana sayfa</button><button onclick="view('lessons')">Dersler</button><button onclick="view('words')">Kelimeler</button><button onclick="view('exams')">🎓 Sınav merkezi</button><button onclick="view('speaking')">Konuşma</button><button id="updateAppButton" onclick="updateAcademyApp()" style="background:#13866b">🔄 Güncelle</button></nav></header><main id="app"></main><footer>TROÇKİ STUDIO • Eğitim amaçlı ilk sürüm</footer><script>
+:root{font-family:system-ui,-apple-system,sans-serif;color:#f6f8ff;background:#0b1226}*{box-sizing:border-box}body{margin:0}header{padding:20px;background:#131f3e;border-bottom:1px solid #334368}main{max-width:1000px;margin:auto;padding:20px}.brand{font-size:25px;font-weight:800}.muted{color:#b7c5e6}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.card{background:#172544;border:1px solid #344568;border-radius:18px;padding:20px;margin:12px 0}button,select{background:#5068eb;color:white;border:0;border-radius:10px;padding:12px 16px;font:inherit;cursor:pointer}button:hover{background:#657bfa}button:disabled{opacity:.5}nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.choice{display:block;width:100%;text-align:left;margin:8px 0;background:#263858}.good{color:#6ee7b7}.bad{color:#fca5a5}.pill{display:inline-block;padding:5px 10px;background:#2c416a;border-radius:20px;margin:4px}h1,h2,h3{line-height:1.25}footer{text-align:center;padding:28px;color:#b7c5e6}</style></head><body><header><div class="brand">🇬🇧 TROÇKİ ENGLISH ACADEMY</div><div class="muted">İngilizce öğren • Pratik yap • Sınava hazırlan</div><nav><button onclick="view('home')">Ana sayfa</button><button onclick="view('lessons')">Dersler</button><button onclick="view('words')">Kelimeler</button><button onclick="view('exams')">🎓 Sınav merkezi</button><button onclick="view('speaking')">Konuşma</button><button id="updateAppButton" onclick="updateAcademyApp()" style="background:#13866b">🔄 Güncelle</button></nav></header><main id="app"></main><footer>TROÇKİ STUDIO • <span id="appVersion">v1.1.0</span> • <span id="updateStatus" role="status" aria-live="polite">🔄 Sürüm kontrol ediliyor…</span></footer><script>
 const lessons=[['A1','Greetings','Hello! How are you?','Merhaba! Nasılsın?'],['A1','Introductions','My name is Alex.','Benim adım Alex.'],['A1','Daily life','I drink tea every morning.','Her sabah çay içerim.'],['A2','Past simple','I visited London yesterday.','Dün Londra’yı ziyaret ettim.'],['B1','Present perfect','I have lived here for five years.','Beş yıldır burada yaşıyorum.'],['B2','Conditionals','If I had time, I would travel.','Zamanım olsaydı seyahat ederdim.'],['C1','Advanced expression','Despite the challenges, we persevered.','Zorluklara rağmen azmettik.'],['C2','Nuanced language','His remarks were open to interpretation.','Sözleri yoruma açıktı.']];
 const words=[['apple','elma'],['journey','yolculuk'],['knowledge','bilgi'],['environment','çevre'],['achievement','başarı'],['although','-e rağmen'],['research','araştırma'],['opportunity','fırsat']];
 const exams={
@@ -35,4 +35,44 @@ async function updateAcademyApp(){
   const u=new URL(location.href);u.searchParams.set('refresh',Date.now().toString());location.replace(u.toString());
  }catch(e){if(b){b.disabled=false;b.textContent='🔄 Güncelle'}alert('Güncelleme kontrolü tamamlanamadı. İnternet bağlantısını kontrol edip yeniden deneyin.')}
 }
+</script><script>
+(function(){
+ const CURRENT_VERSION='1.1.0', STATUS_ID='updateStatus',VERSION_ID='appVersion';
+ const status=(s)=>{const el=document.getElementById(STATUS_ID);if(el)el.textContent=s};
+ const showVersion=(v)=>{const el=document.getElementById(VERSION_ID);if(el)el.textContent='v'+v};
+ let busy=false;
+ async function checkVersion(){
+  if(busy)return;
+  busy=true;
+  try{
+   const response=await fetch('./version.json?check='+Date.now(),{cache:'no-store'});
+   if(!response.ok)throw new Error('HTTP '+response.status);
+   const data=await response.json();
+   if(!/^\d+\.\d+\.\d+$/.test(data.version))throw new Error('Geçersiz sürüm');
+   const newer=(a,b)=>{const x=a.split('.').map(Number),y=b.split('.').map(Number);for(let i=0;i<3;i++){if(x[i]>y[i])return true;if(x[i]<y[i])return false}return false};
+   if(newer(data.version,CURRENT_VERSION)){
+    const lastAttempt=sessionStorage.getItem('tea-update-attempt');
+    if(lastAttempt===data.version){status('⚠️ Yeni sürüm bekleniyor — Güncelle düğmesini kullanın');return}
+    sessionStorage.setItem('tea-update-attempt',data.version);
+    status('🔄 Yeni sürüm v'+data.version+' yükleniyor…');
+    if('serviceWorker' in navigator){const reg=await navigator.serviceWorker.getRegistration('./');if(reg)await reg.update()}
+    if('caches' in window){const keys=await caches.keys();await Promise.all(keys.filter(k=>k.startsWith('tea-')).map(k=>caches.delete(k)))}
+    sessionStorage.setItem('tea-just-updated',data.version);
+    const url=new URL(location.href);url.searchParams.set('v',data.version);url.searchParams.set('updated',Date.now().toString());
+    location.replace(url.toString());return;
+   }
+   if(sessionStorage.getItem('tea-just-updated')===CURRENT_VERSION){
+    status('✅ Güncellendi — v'+CURRENT_VERSION);
+    sessionStorage.removeItem('tea-just-updated');
+    sessionStorage.removeItem('tea-update-attempt');
+   }else{status('✅ Güncel — v'+CURRENT_VERSION)}
+   showVersion(CURRENT_VERSION);
+  }catch(e){status('⚠️ Güncelleme kontrol edilemedi')}
+  finally{busy=false}
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',checkVersion,{once:true});else checkVersion();
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkVersion()});
+ window.addEventListener('online',checkVersion);
+ setInterval(()=>{if(!document.hidden)checkVersion()},15*60*1000);
+})();
 </script></body></html>
