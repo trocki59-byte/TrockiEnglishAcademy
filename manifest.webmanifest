@@ -1,0 +1,9 @@
+{
+  "name": "TROÇKİ English Academy",
+  "short_name": "English Academy",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b1226",
+  "theme_color": "#111a35",
+  "lang": "tr"
+}
