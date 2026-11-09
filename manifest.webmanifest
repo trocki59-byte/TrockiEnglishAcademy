@@ -1,7 +1,7 @@
 {
   "name": "TROÇKİ English Academy",
   "short_name": "English Academy",
-  "start_url": "./",
+  "start_url": "./?app=v5",
   "display": "standalone",
   "background_color": "#0b1226",
   "theme_color": "#111a35",
