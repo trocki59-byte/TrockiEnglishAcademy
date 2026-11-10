@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
-  "build": "2026-11-09-auto-update",
-  "notes": "Otomatik sürüm kontrolü ve alt bilgi durumu"
+  "version": "1.2.0",
+  "build": "2026-11-10-lessons-exams",
+  "notes": "80 ders, 240 ders sorusu, 80 süreli sınav sorusu"
 }
