@@ -1,5 +1,5 @@
 {
-  "version": "1.5.0",
-  "build": "2026-11-10-reading-listening",
-  "notes": "6 seviyede okuma-dinleme atölyesi, 18 anlama sorusu ve sonuç kaydı"
+  "version": "1.5.1",
+  "build": "2026-11-10-update-fix",
+  "notes": "iPhone güncelleme döngüsü ve önbellek düzeltmesi"
 }
