@@ -1,5 +1,5 @@
 {
-  "version": "1.6.0",
-  "build": "2026-11-10-university-bank-84",
-  "notes": "YKS–YDT 42, üniversite hazırlık 42 soru; rastgele 10, 20, 40 soruluk denemeler"
+  "version": "1.7.0",
+  "build": "2026-11-10-ydt-original-bank",
+  "notes": "2026 YDT tarzında 50 özgün soru; 10/20/40/80 soruluk deneme seçimi"
 }
