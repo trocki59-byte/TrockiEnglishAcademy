@@ -1,5 +1,5 @@
 {
-  "version": "1.7.0",
-  "build": "2026-11-10-ydt-original-bank",
-  "notes": "2026 YDT tarzında 50 özgün soru; 10/20/40/80 soruluk deneme seçimi"
+  "version": "1.8.0",
+  "build": "2026-11-10-ydt-2025-question-bank",
+  "notes": "2025 YDT yapısına göre 50 yeni özgün beş seçenekli soru, 142 YDT sorusu, 10/20/40/80 soruluk denemeler"
 }
